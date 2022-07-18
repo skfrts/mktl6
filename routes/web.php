@@ -47,4 +47,3 @@ Route::prefix('admin')->namespace('Admin')->group(function()
         Route::post('store', 'StoreController@store');
     });    
 });
- 

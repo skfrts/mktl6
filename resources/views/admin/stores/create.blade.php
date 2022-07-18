@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('')
+@section('content')
     <h1>Criar Loja</h1>
     <form action="/admin/stores/store" method="POST">
         <input type="hidden" name="_token" value="{{csrf_token()}}"
