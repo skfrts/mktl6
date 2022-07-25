@@ -40,10 +40,10 @@ class StoreController extends Controller
     }
 
     public function update(Request $request)
-    {
+    {   
         $data = $request->all();
 
-        $store = \App\Store::find($store);
+        $store = \App\Store::find($request->store);
         $store->update($data);
 
         flash('Loja Atualizada com Sucesso')->success();
