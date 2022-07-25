@@ -34,7 +34,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $product = \App\Product::all(['id', 'name']);
+        $stores = \App\Store::all();
+
+        return view('admin.products.create', compact('product', 'stores'));
     }
 
     /**
@@ -46,12 +49,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        
+       
         $store = \App\Store::find($data['store']);
         $store->products()->create($data);
 
         flash('Produto Criado com Sucesso!')->success();
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index');        
     }
 
     /**
@@ -82,10 +85,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $product)
     {
         $data = $request->all();
         
@@ -99,11 +102,15 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product)
     {
-        //
+        $product = $this->product->find($product);
+        $product->delete();
+
+        flash('Produto Removido com Sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 }
