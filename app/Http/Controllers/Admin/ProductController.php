@@ -45,9 +45,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $store = \App\Store::all(['id', 'name']);
+        $data = $request->all();
+        
+        $store = \App\Store::find($data['store']);
+        $store->products()->create($data);
 
-        return view('admin.products.create', compact('stores'));
+        flash('Produto Criado com Sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -69,9 +73,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $products = $this->product->find($id);
+        $product = $this->product->findOrFail($id);
 
-        return view('admin.products.edit', compact('id'));
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -83,7 +87,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        
+        $product = $this->product->find($product);
+        $product->update($data);
+
+        flash('Produto Atualizado com Sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**
