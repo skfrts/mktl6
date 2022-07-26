@@ -15,7 +15,7 @@ Route::get('/', function () {
     $helloWorld = 'Hello World';
 
     return view('welcome', compact('helloWorld'));
-});
+})->name('home');
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function()
 {
@@ -34,4 +34,4 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function()
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
